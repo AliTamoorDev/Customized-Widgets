@@ -54,52 +54,59 @@ struct ContentView: View {
                         .frame(maxWidth: .infinity, alignment: .center)
                 }.padding(.bottom, 5)
                     .background(.ultraThinMaterial.opacity(0.5))
-                
-                ScrollView (showsIndicators: false) {
-                    VStack {
-                        Text("We're here for you, and our team would be happy to help with any questions or issues you might have.")
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                            .multilineTextAlignment(.leading)
-                            .padding(.top)
-                        
-                        FloatingTextField(title: "First Name", text: $firstName, focusedField: $focusedField, field: .firstName)
-                            .id(Field.firstName)
-                            .submitLabel(.next)
-                            .onSubmit { focusedField = .lastName }
-                        
-                        FloatingTextField(title: "Last Name (Optional)", text: $lastName, focusedField: $focusedField, field: .lastName)
-                            .id(Field.lastName)
-                            .submitLabel(.next)
-                            .onSubmit { focusedField = .email }
-                        
-                        FloatingTextField(title: "Email", text: $email, focusedField: $focusedField, field: .email)
-                            .id(Field.email)
-                            .keyboardType(.emailAddress)
-                            .submitLabel(.next)
-                            .onSubmit { focusedField = .phone }
-                        
-                        FloatingTextField(title: "Phone Number", text: $phone, focusedField: $focusedField, field: .phone)
-                            .id(Field.phone)
-                            .keyboardType(.phonePad)
-                            .submitLabel(.next)
-                            .onSubmit { focusedField = .iccid }
-                        
-                        FloatingTextField(title: "eSIM ICCID (Optional)", text: $iccid, focusedField: $focusedField, field: .iccid)
-                            .id(Field.iccid)
-                            .keyboardType(.numberPad)
-                            .submitLabel(.next)
-                            .onSubmit { focusedField = .subject }
-                        
-                        FloatingTextField(title: "Subject", text: $subject, focusedField: $focusedField, field: .subject)
-                            .id(Field.subject)
-                            .submitLabel(.next)
-                            .onSubmit { focusedField = .message }
-                        
-                        FloatingTextField(title: "Message", text: $message, focusedField: $focusedField, field: .message, axis: .vertical)
-                            .id(Field.message)
-                            .lineLimit(4...4)
-                    }.padding(.horizontal)
+                ScrollViewReader { scrollView in
+
+                    ScrollView (showsIndicators: false) {
+                        VStack {
+                            Text("We're here for you, and our team would be happy to help with any questions or issues you might have.")
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                                .multilineTextAlignment(.leading)
+                                .padding(.top)
+                            
+                            FloatingTextField(title: "First Name", text: $firstName, focusedField: $focusedField, field: .firstName)
+                                .id(Field.firstName)
+                                .submitLabel(.next)
+                                .onSubmit { focusedField = .lastName }
+                            
+                            FloatingTextField(title: "Last Name (Optional)", text: $lastName, focusedField: $focusedField, field: .lastName)
+                                .id(Field.lastName)
+                                .submitLabel(.next)
+                                .onSubmit { focusedField = .email }
+                            
+                            FloatingTextField(title: "Email", text: $email, focusedField: $focusedField, field: .email)
+                                .id(Field.email)
+                                .keyboardType(.emailAddress)
+                                .submitLabel(.next)
+                                .onSubmit { focusedField = .phone }
+                            
+                            FloatingTextField(title: "Phone Number", text: $phone, focusedField: $focusedField, field: .phone)
+                                .id(Field.phone)
+                                .keyboardType(.phonePad)
+                                .submitLabel(.next)
+                                .onSubmit { focusedField = .iccid }
+                            
+                            FloatingTextField(title: "eSIM ICCID (Optional)", text: $iccid, focusedField: $focusedField, field: .iccid)
+                                .id(Field.iccid)
+                                .keyboardType(.numberPad)
+                                .submitLabel(.next)
+                                .onSubmit { focusedField = .subject }
+                            
+                            FloatingTextField(title: "Subject", text: $subject, focusedField: $focusedField, field: .subject)
+                                .id(Field.subject)
+                                .submitLabel(.next)
+                                .onSubmit { focusedField = .message }
+                            
+                            FloatingTextField(title: "Message", text: $message, focusedField: $focusedField, field: .message, axis: .vertical)
+                                .id(Field.message)
+                                .lineLimit(4...4)
+                        }.padding(.horizontal)
+                            .onChange(of: focusedField) { field in
+                                                withAnimation {
+                                                    scrollView.scrollTo(field, anchor: .center)
+                                                }
+                                            }
+                    }
                 }
                 
                 .toolbar {
