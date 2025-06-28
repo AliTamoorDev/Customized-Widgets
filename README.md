@@ -1,0 +1,1 @@
+This repository offers a collection of customizable SwiftUI widgets for iOS developers. It provides reusable UI components like buttons, input fields, cards, sliders, and modals, all designed for easy integration into iOS apps. These widgets are fully customizable in terms of style, size, and interaction, ensuring flexibility and consistency across different app designs.
